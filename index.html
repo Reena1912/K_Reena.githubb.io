@@ -6,13 +6,7 @@
 <title>K. Reena — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7ET0PP3WJE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-7ET0PP3WJE');
-</script>
+
 
 <style>
   :root {
@@ -1163,28 +1157,6 @@
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
 
-  const WEBHOOK_URL = 'https://discord.com/api/webhooks/1508778145946275862/d7atH0aSXtdkBIncNUOM1m5Tr-Lk05Z3g93gdBOrYotXufNkSMBbf5q507n1_Yjyt_Nl';
-  if (WEBHOOK_URL !== 'https://discord.com/api/webhooks/1508778145946275862/d7atH0aSXtdkBIncNUOM1m5Tr-Lk05Z3g93gdBOrYotXufNkSMBbf5q507n1_Yjyt_Nl') {
-    const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
-    const referrer = document.referrer ? `From: ${document.referrer}` : 'Direct visit';
-    fetch(WEBHOOK_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        username: 'Portfolio Tracker',
-        embeds: [{
-          title: '👀 Someone viewed your portfolio!',
-          color: 0x7B1225,
-          fields: [
-            { name: '🕐 Time (IST)', value: time, inline: true },
-            { name: '🌍 Source', value: referrer, inline: true },
-            { name: '📄 Page', value: window.location.href, inline: false }
-          ],
-          footer: { text: 'K. Reena — Portfolio Tracker' }
-        }]
-      })
-    }).catch(() => {});
-  }
 </script>
 </body>
 </html>
