@@ -5,6 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>K. Reena — Portfolio</title>
 <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+
+<!-- Google Analytics — replace G-XXXXXXXXXX with your real Measurement ID -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7ET0PP3WJE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7ET0PP3WJE');
+</script>
+
 <style>
   :root {
     --bg:       #FEFCF9;
@@ -790,15 +800,35 @@
       <div class="skill-label">Languages</div>
       <div class="tag-row"><span class="tag">Python</span><span class="tag">SQL</span></div>
     </div>
+
     <div class="skill-card reveal">
       <div class="skill-icon"></div>
       <div class="skill-label">AI & LLMs</div>
       <div class="tag-row">
         <span class="tag m">LLaMA 3.3</span><span class="tag m">Groq API</span>
         <span class="tag m">Prompt Eng.</span><span class="tag m">Generative AI</span>
+        <span class="tag m">RAG</span><span class="tag m">Langchain</span>
+        <span class="tag m">ChromaDB</span><span class="tag m">Hugging</span>
         <span class="tag m">Scikit-learn</span>
       </div>
     </div>
+
+    <!-- Added Web Development Section -->
+    <div class="skill-card reveal">
+      <div class="skill-icon"></div>
+      <div class="skill-label">Web Development</div>
+      <div class="tag-row">
+        <span class="tag">HTML</span>
+        <span class="tag">CSS</span>
+        <span class="tag">Streamlit</span>
+        
+        
+        
+        
+        
+      </div>
+    </div>
+
     <div class="skill-card reveal">
       <div class="skill-icon"></div>
       <div class="skill-label">Backend & APIs</div>
@@ -808,6 +838,7 @@
         <span class="tag">Pydantic</span><span class="tag">bcrypt</span>
       </div>
     </div>
+
     <div class="skill-card reveal">
       <div class="skill-icon"></div>
       <div class="skill-label">Databases</div>
@@ -815,14 +846,17 @@
         <span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">Supabase</span>
       </div>
     </div>
+
     <div class="skill-card reveal">
       <div class="skill-icon"></div>
       <div class="skill-label">Data Engineering</div>
       <div class="tag-row">
         <span class="tag g">ETL Pipelines</span><span class="tag g">Data Cleaning</span>
         <span class="tag g">Data Modeling</span><span class="tag g">Visualization</span>
+        <span class="tag g">Web Scraping</span><span class="tag g">Playwright</span>
       </div>
     </div>
+
     <div class="skill-card reveal">
       <div class="skill-icon"></div>
       <div class="skill-label">DevOps & Tools</div>
@@ -889,6 +923,20 @@
       </div>
       <a class="proj-link" href="https://github.com/Reena1912/Ai-content" target="_blank">View Demo</a>
     </div>
+    <div class="proj-card reveal">
+  <div class="proj-num">// 03</div>
+  <div class="proj-title">RAG Chatbot — AI Customer Support</div>
+  <div class="proj-desc">
+    Built a <span class="proj-highlight">5-stage RAG pipeline</span> — Playwright scraping → LangChain chunking (400-char, 50-char overlap) → local sentence-transformer embeddings → ChromaDB vector store → Groq LLM generation — achieving <span class="proj-highlight">~0% hallucination rate</span> on 20+ domain-specific test cases vs. ~40% with a plain LLM prompt. Exposed via a <span class="proj-highlight">FastAPI REST backend</span> with Pydantic validation and auto-generated OpenAPI docs; end-to-end query resolution completes in under 2 seconds with <span class="proj-highlight">zero paid API calls</span> at embedding and retrieval stages.
+  </div>
+  <div class="proj-stack">
+    <span class="proj-tag">Python</span><span class="proj-tag">FastAPI</span>
+    <span class="proj-tag">Playwright</span><span class="proj-tag">LangChain</span>
+    <span class="proj-tag">ChromaDB</span><span class="proj-tag">HuggingFace</span>
+    <span class="proj-tag">Groq API</span>
+  </div>
+  <a class="proj-link" href="https://github.com/Reena1912/AI-powered-customer-support" target="_blank">View on GitHub</a>
+</div>
   </div>
 </section>
 
@@ -1114,6 +1162,30 @@
     });
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+ // Discord portfolio view alert — replace URL with your webhook
+  const WEBHOOK_URL = 'https://discord.com/api/webhooks/1508778145946275862/d7atH0aSXtdkBIncNUOM1m5Tr-Lk05Z3g93gdBOrYotXufNkSMBbf5q507n1_Yjyt_Nl';
+  if (WEBHOOK_URL !== 'https://discord.com/api/webhooks/1508778145946275862/d7atH0aSXtdkBIncNUOM1m5Tr-Lk05Z3g93gdBOrYotXufNkSMBbf5q507n1_Yjyt_Nl') {
+    const time = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' });
+    const referrer = document.referrer ? `From: ${document.referrer}` : 'Direct visit';
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        username: 'Portfolio Tracker',
+        embeds: [{
+          title: '👀 Someone viewed your portfolio!',
+          color: 0x7B1225,
+          fields: [
+            { name: '🕐 Time (IST)', value: time, inline: true },
+            { name: '🌍 Source', value: referrer, inline: true },
+            { name: '📄 Page', value: window.location.href, inline: false }
+          ],
+          footer: { text: 'K. Reena — Portfolio Tracker' }
+        }]
+      })
+    }).catch(() => {});
+  }
 </script>
 </body>
 </html>
