@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -18,10 +18,12 @@
   <meta property="twitter:description" content="CS Graduate (CGPA 8.09) building production-deployed scalable backend systems." />
   <meta property="twitter:image" content="https://k-reena-githubb-io.vercel.app/images/reena_photo.jpeg" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+  <!-- Google Fonts (Lora, JetBrains Mono, Roboto + Caveat for Handwriting Signature) -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;700&family=Roboto:wght@300;400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet"/>
 
   <style>
     :root {
+      /* Light Theme Variables */
       --bg:       #FEFCF9;
       --bg2:      #F6F0EC;
       --card:     #FFFFFF;
@@ -38,6 +40,21 @@
       --body:     'Roboto', sans-serif;
     }
 
+    [data-theme="dark"] {
+      /* Custom Deep Cyber-Maroon Dark Theme */
+      --bg:       #13090B;
+      --bg2:      #1C0E11;
+      --card:     #180C0E;
+      --border:   #381F23;
+      --maroon:   #FF4B6B;
+      --maroon2:  #FF6E87;
+      --maroon3:  #7B1225;
+      --gold:     #ECC37A;
+      --text:     #FBF8F9;
+      --muted:    #AA8E92;
+      --soft:     #2D1418;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
 
@@ -46,20 +63,79 @@
       color: var(--text);
       font-family: var(--body);
       overflow-x: hidden;
+      transition: background-color 0.4s ease, color 0.4s ease, border-color 0.4s ease;
+    }
+
+    /* ── FILM GRAIN OVERLAY ── */
+    body::after {
+      content: "";
+      position: fixed;
+      top: -10rem; left: -10rem;
+      width: calc(100% + 20rem);
+      height: calc(100% + 20rem);
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      opacity: 0.038;
+      pointer-events: none;
+      z-index: 9999;
+      animation: grain-animation 8s steps(10) infinite;
+    }
+    @keyframes grain-animation {
+      0%, 100% { transform:translate(0, 0); }
+      10% { transform:translate(-5%, -10%); }
+      20% { transform:translate(-15%, 5%); }
+      30% { transform:translate(7%, -25%); }
+      40% { transform:translate(-5%, 25%); }
+      50% { transform:translate(-15%, 10%); }
+      60% { transform:translate(15%, 0%); }
+      70% { transform:translate(0%, 15%); }
+      80% { transform:translate(3%, 35%); }
+      90% { transform:translate(-10%, 10%); }
     }
 
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg2); }
     ::-webkit-scrollbar-thumb { background: var(--maroon); border-radius: 2px; }
 
+    /* ── FLOATING THEME TOGGLE ── */
+    .theme-toggle-btn {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 1000;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.25rem;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .theme-toggle-btn:hover {
+      transform: scale(1.1) rotate(15deg);
+      border-color: var(--maroon);
+    }
+    .theme-toggle-btn:active {
+      transform: scale(0.95);
+    }
+
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.1rem 3rem;
-      background: rgba(254,252,249,0.9);
+      background: rgba(254,252,249,0.85);
       backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+    [data-theme="dark"] nav {
+      background: rgba(19,9,11,0.85);
     }
     .nav-logo {
       font-family: var(--display);
@@ -67,6 +143,18 @@
       font-weight: 700;
       color: var(--maroon);
       letter-spacing: -0.01em;
+    }
+    .logo-caret {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background-color: var(--gold);
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: caretBlink 1s step-end infinite;
+    }
+    @keyframes caretBlink {
+      50% { opacity: 0; }
     }
     .nav-logo sup {
       font-family: var(--mono);
@@ -77,7 +165,9 @@
       vertical-align: super;
     }
     .nav-links { display: flex; gap: 2.5rem; }
-    .nav-links a {
+    
+    /* ── LINK UNDERLINE EFFECT ── */
+    .link-underline {
       font-family: var(--mono);
       font-size: 0.68rem;
       color: var(--muted);
@@ -85,8 +175,26 @@
       letter-spacing: 0.12em;
       text-transform: uppercase;
       transition: color 0.2s;
+      position: relative;
+      padding-bottom: 2px;
     }
-    .nav-links a:hover { color: var(--maroon); }
+    .link-underline::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: var(--maroon);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    .link-underline:hover { color: var(--maroon); }
+    .link-underline:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
 
     /* ── HERO ── */
     .hero {
@@ -109,12 +217,15 @@
 
     .hero-left { position: relative; display: flex; flex-direction: column; }
 
+    /* Pulsing Badge status */
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
       background: rgba(123,18,37,0.06);
       border: 1px solid rgba(123,18,37,0.15);
       border-radius: 100px;
-      padding: 0.4rem 1rem;
+      padding: 0.4rem 1.1rem;
       font-family: var(--mono);
       font-size: 0.65rem;
       color: var(--maroon);
@@ -123,7 +234,27 @@
       margin-bottom: 2rem;
       width: fit-content;
     }
-    .hero-badge::before { content: '●'; color: var(--gold); font-size: 0.5rem; }
+    .badge-pulse-dot {
+      width: 7px;
+      height: 7px;
+      background-color: var(--gold);
+      border-radius: 50%;
+      position: relative;
+    }
+    .badge-pulse-dot::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 100%; height: 100%;
+      background-color: var(--gold);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      animation: pulseGlow 1.8s ease-in-out infinite;
+    }
+    @keyframes pulseGlow {
+      0% { width: 100%; height: 100%; opacity: 0.8; }
+      100% { width: 250%; height: 250%; opacity: 0; }
+    }
 
     .hero h1 {
       font-family: var(--display);
@@ -195,6 +326,7 @@
       position: relative;
       flex-shrink: 0;
       background: var(--soft);
+      transition: border-color 0.4s ease;
     }
     .hero-img-wrap::before {
       content: '';
@@ -268,7 +400,6 @@
       animation: blink 1s step-end infinite;
       vertical-align: middle; margin-left: 2px;
     }
-    @keyframes blink { 50% { opacity: 0; } }
 
     .stat-row { width: 100%; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
     .stat-box {
@@ -277,7 +408,7 @@
       border-radius: 8px;
       padding: 1.25rem;
       text-align: center;
-      transition: border-color 0.2s, transform 0.2s;
+      transition: border-color 0.2s, transform 0.2s, background-color 0.4s ease;
     }
     .stat-box:hover { border-color: var(--maroon); transform: translateY(-2px); }
     .stat-num {
@@ -297,7 +428,7 @@
     }
 
     /* ── SECTIONS ── */
-    section { padding: 6rem 3rem; }
+    section { padding: 6rem 3rem; border-color: var(--border); transition: border-color 0.4s ease; }
 
     .section-eyebrow {
       display: inline-flex; align-items: center; gap: 0.6rem;
@@ -324,14 +455,14 @@
     .section-title em { font-style: italic; font-weight: 300; color: var(--maroon); }
 
     /* ── SKILLS ── */
-    #skills { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    #skills { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background-color 0.4s ease, border-color 0.4s ease;}
     .skill-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 1.25rem; }
     .skill-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 8px;
       padding: 1.5rem;
-      transition: all 0.25s;
+      transition: all 0.25s, background-color 0.4s ease;
       position: relative;
       overflow: hidden;
     }
@@ -364,6 +495,7 @@
       border-radius: 3px;
       padding: 0.18rem 0.5rem;
       letter-spacing: 0.03em;
+      transition: all 0.4s ease;
     }
     .tag.m { background: rgba(123,18,37,0.07); border-color: rgba(123,18,37,0.18); color: var(--maroon2); }
     .tag.g { background: rgba(192,146,58,0.08); border-color: rgba(192,146,58,0.25); color: #8a6420; }
@@ -383,6 +515,7 @@
       bottom: 0;
       width: 2px;
       background: var(--border);
+      transition: background-color 0.4s ease;
     }
     .timeline-item {
       position: relative;
@@ -450,6 +583,7 @@
       padding: 0.3rem 0.85rem;
       border-radius: 100px;
       white-space: nowrap;
+      transition: all 0.4s ease;
     }
     .timeline-card {
       background: var(--card);
@@ -457,7 +591,7 @@
       border-radius: 10px;
       padding: 2rem 2.25rem;
       box-shadow: 0 4px 12px rgba(0,0,0,0.02);
-      transition: all 0.3s ease;
+      transition: all 0.3s ease, background-color 0.4s ease, border-color 0.4s ease;
     }
     .timeline-card:hover {
       border-color: rgba(123,18,37,0.25);
@@ -487,6 +621,7 @@
       border-top: 1px solid var(--border); 
       border-bottom: 1px solid var(--border); 
       position: relative;
+      transition: background-color 0.4s ease, border-color 0.4s ease;
     }
     .projects-header {
       display: flex;
@@ -515,7 +650,7 @@
       justify-content: center;
       font-size: 1.2rem;
       font-weight: 700;
-      transition: all 0.25s ease;
+      transition: all 0.25s ease, background-color 0.4s ease, border-color 0.4s ease;
       box-shadow: 0 4px 12px rgba(123,18,37,0.05);
     }
     .slider-btn:hover {
@@ -550,7 +685,7 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
-      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), background-color 0.4s ease, border-color 0.4s ease;
       transform-style: preserve-3d;
       perspective: 1000px;
     }
@@ -639,7 +774,7 @@
       border-radius: 50%;
       background: var(--border);
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.4s ease;
     }
     .slider-dot.active {
       background: var(--maroon);
@@ -666,7 +801,7 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.75rem;
-      transition: all 0.25s;
+      transition: all 0.25s, background-color 0.4s ease, border-color 0.4s ease;
       position: relative; overflow: hidden;
     }
     .platform-card::before {
@@ -694,6 +829,7 @@
       padding: 3rem;
       max-width: 700px;
       position: relative; overflow: hidden;
+      transition: background-color 0.4s ease, border-color 0.4s ease;
     }
     .award-wrap::before {
       content: '';
@@ -714,7 +850,7 @@
     .award-desc strong { color: var(--text); }
 
     /* ── CERTIFICATIONS ── */
-    #certs { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    #certs { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); transition: background-color 0.4s ease, border-color 0.4s ease;}
     .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; }
     .cert-card {
       background: var(--card);
@@ -722,7 +858,7 @@
       border-radius: 8px;
       padding: 1.25rem 1.5rem;
       display: flex; align-items: flex-start; gap: 0.9rem;
-      transition: all 0.2s;
+      transition: all 0.2s, background-color 0.4s ease, border-color 0.4s ease;
     }
     .cert-card:hover { border-color: rgba(123,18,37,0.25); transform: translateY(-2px); }
     .cert-icon { flex-shrink: 0; padding-top: 0.1rem; display: flex; align-items: center; }
@@ -743,7 +879,7 @@
       border: 1px solid var(--border);
       border-radius: 12px;
       overflow: hidden;
-      transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s;
+      transition: box-shadow 0.25s, border-color 0.25s, transform 0.25s, background-color 0.4s ease;
     }
     .activity-item:hover {
       border-color: rgba(123,18,37,0.25);
@@ -757,6 +893,7 @@
       justify-content: space-between;
       gap: 1.5rem;
       border-right: 1px solid var(--border);
+      transition: border-color 0.4s ease;
     }
     .activity-meta { display: flex; flex-direction: column; gap: 0.4rem; }
     .activity-year {
@@ -837,7 +974,7 @@
       font-family: var(--mono);
       font-size: 0.75rem;
       letter-spacing: 0.04em;
-      transition: all 0.2s;
+      transition: all 0.2s, background-color 0.4s ease, border-color 0.4s ease;
     }
     .contact-item:hover {
       border-color: var(--maroon);
@@ -847,15 +984,25 @@
     }
     .contact-icon { display: inline-flex; align-items: center; }
 
-    /* ── FOOTER ── */
+    /* ── FOOTER & SIGNATURE ── */
     footer {
       text-align: center;
-      padding: 2.5rem;
+      padding: 3.5rem;
       border-top: 1px solid var(--border);
       font-family: var(--mono);
       font-size: 0.68rem;
       color: var(--muted);
       letter-spacing: 0.1em;
+      transition: border-color 0.4s ease;
+    }
+    .signature {
+      font-family: 'Caveat', cursive;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--maroon);
+      margin-bottom: 0.3rem;
+      letter-spacing: 0.02em;
+      transition: color 0.4s ease;
     }
     footer span { color: var(--maroon); }
 
@@ -880,29 +1027,35 @@
       .activity-item { grid-template-columns: 1fr; }
       .activity-left { border-right: none; border-bottom: 1px solid var(--border); }
       .activity-img-wrap { min-height: 240px; }
+      .theme-toggle-btn { bottom: 1.5rem; right: 1.5rem; width: 44px; height: 44px; }
     }
   </style>
 </head>
-<body>
+<body class="grain">
+
+<!-- FLOATING THEME TOGGLE -->
+<button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle dark/light mode">🌙</button>
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">K. Reena <sup>CSE '26</sup></div>
+  <div class="nav-logo">K. Reena <span class="logo-caret"></span><sup>CSE '26</sup></div>
   <div class="nav-links">
-    <a href="#skills">Skills</a>
-    <a href="#journey">Journey</a>
-    <a href="#projects">Projects</a>
-    <a href="#coding">Coding</a>
-    <a href="#certs">Certs</a>
-    <a href="#activities">Activities</a>
-    <a href="#contact">Contact</a>
+    <a href="#skills" class="link-underline">Skills</a>
+    <a href="#journey" class="link-underline">Journey</a>
+    <a href="#projects" class="link-underline">Projects</a>
+    <a href="#coding" class="link-underline">Coding</a>
+    <a href="#certs" class="link-underline">Certs</a>
+    <a href="#activities" class="link-underline">Activities</a>
+    <a href="#contact" class="link-underline">Contact</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="hero-badge reveal">Available for Full-Time Roles</div>
+    <div class="hero-badge reveal">
+      <span class="badge-pulse-dot"></span>Available for Full-Time Roles
+    </div>
 
     <h1 class="reveal">
       <span class="line1">K. Reena</span>
@@ -920,7 +1073,7 @@
       <a class="btn btn-primary" href="mailto:reenarao1912@gmail.com">Hire Me →</a>
       
       <!-- Resume Download CTA -->
-      <a class="btn btn-ghost" href="/assets/K_Reena_Resume.pdf" download="K_Reena_Resume.pdf">
+      <a class="btn btn-ghost" href="/resume.html" target="_blank">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right:4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
         Resume
       </a>
@@ -1438,7 +1591,8 @@
 
 <!-- FOOTER -->
 <footer>
-  Made with <span>♥</span> by K. Reena &copy; 2026. All rights reserved.
+  <div class="signature">K. Reena</div>
+  <p>Made with <span>♥</span> &copy; 2026. All rights reserved.</p>
 </footer>
 
 <script>
@@ -1621,6 +1775,24 @@
     card.addEventListener('mouseleave', () => {
       card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
     });
+  });
+
+  // ── THEME TOGGLE SCRIPT ──
+  const themeToggle = document.getElementById("theme-toggle");
+  const htmlRoot = document.documentElement;
+
+  // Read saved preference or default to light
+  const currentTheme = localStorage.getItem("theme") || "light";
+  htmlRoot.setAttribute("data-theme", currentTheme);
+  themeToggle.textContent = currentTheme === "dark" ? "☀️" : "🌙";
+
+  themeToggle.addEventListener("click", () => {
+    const activeTheme = htmlRoot.getAttribute("data-theme");
+    const newTheme = activeTheme === "dark" ? "light" : "dark";
+    
+    htmlRoot.setAttribute("data-theme", newTheme);
+    localStorage.setItem("theme", newTheme);
+    themeToggle.textContent = newTheme === "dark" ? "☀️" : "🌙";
   });
 </script>
 </body>
